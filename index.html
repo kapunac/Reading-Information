@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Creating class for making objects
+class Student{
+    constructor(name,address,phone,course){
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.course = course;
+    }
+    get info(){
+        return 'Name:' + this.name + '\n' + 'Address:' + this.address + '\n' + 'Phone:' + this.phone + '\n' + 'Course:' + this.course + '\n\n'
+    }
+
+}
+
+        async function getData(){
+            //Fetching data from the link
+            let response = await fetch("https://v-dresevic.github.io/Advanced-JavaScript-Programming/data/students.txt");
+            // Converting data to string type
+            let getText = await response.text();
+            // Making an array of string type data
+            let text = getText.split('\n');
+
+            //Loop through array
+            for( let i=0; i < text.length; i++) {
+                //Creating objects for each student in the array
+                let student = new Student(text[i],text[i+1],text[i+2],text[i+3])
+                let studentInfo = document.createElement('p');
+                studentInfo.innerText = student.info;
+                //Adding it to the screen (body) as p tag
+                document.body.append(studentInfo)
+                //Cutting the start of the array, after making an object using the info
+                text.splice(0,3);         
+            }
+        }
+        getData()
+    </script>
+</body>
+</html>
